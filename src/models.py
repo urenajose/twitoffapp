@@ -9,18 +9,24 @@ class User(DB.Model):
 class Tweet(DB.Model):
 	id = DB.Column(DB.Integer, primary_key=True)
 	text = DB.Column(DB.Unicode(280), nullable=False)
+	user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
+	user = DB.relationship('User', backref=DB.backref('tweets', lazy=True))
+
+	def __repr__(self):
+		return f'<Tweet: {self.text}>'
 
 
 # flask shell
-# >>> from src.models import DB, User
+# >>> from src.models import DB, User, Tweet
 # >>> DB.create_all()
 # >>> user1 = User(name='elonmusk')
-# >>> DB.session.add(user1)
-# >>> DB.session.commit()
 # >>> user2 = User(name='billgates')
+# >>> tweet1 = Tweet(text='What if Mars was like Earth?')
+# >>> tweet2 = Tweet(text='coding is not difficult')
+# >>> user1.tweets.append(tweet1)
+# >>> user1.tweets.append(tweet2)
+# >>> tweet3 = Tweet(text='Windows is amazing!!!')
+# >>> user2.tweets.append(tweet3)
+# >>> DB.session.add(user1)
 # >>> DB.session.add(user2)
-# >>> DB.session.commit()
-# >>> from src.models import Tweet
-# >>> tweet1 = Tweet(text='this is my tweet!!!')
-# >>> DB.session.add(tweet1)
 # >>> DB.session.commit()
