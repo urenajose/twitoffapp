@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from .models import DB
+from .models import DB, User
 
 def create_app():
 	app = Flask(__name__)
@@ -7,12 +7,19 @@ def create_app():
 	DB.init_app(app)
 
 	@app.route('/')
-	def index():
-	    return 'Index page'
+	def root():
+	    return 'Welcome to Twitoff app!'
 
-	@app.route('/hello/')
-	@app.route('/hello/<name>')
-	def hello(name=None):
-	    return render_template('my_template.html', name=name)
+	@app.route('/users')
+	def users():
+		DB.create_all()
+		users = User.query.all()
+		return render_template('base.html', title='Users', users=users)
+
+	@app.route('/reset')
+	def reset():
+		DB.drop_all()
+		DB.create_all()
+		return render_template('base.html', title='DB Reset', users=[])
 
 	return app
