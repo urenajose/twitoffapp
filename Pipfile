@@ -8,9 +8,11 @@ verify_ssl = true
 [packages]
 flask = "*"
 flask-sqlalchemy = "*"
+gunicorn = "*"
 python-decouple = "*"
-spacy = "*"
 tweepy = "*"
+psycopg2-binary = "*"
+spacy = "*"
 
 [requires]
 python_version = "3.7"
