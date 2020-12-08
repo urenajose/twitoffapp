@@ -1,20 +1,19 @@
-<!doctype html>
 <!DOCTYPE html>
 <html>
 
 <head>
->
 	<title>
 		Twittoff - {{title}}
 	</title>
 </head>
 
 <body>
-	<p> {{title}} </p>
-	<ul>
-		{% for user in users %}
-		<li> {{ user.id}} :: {{user.name}}</li>
-		{% endfor %}
-	</ul>
+	<h1>Twitoff!</h1>
+	{% block content %}
+	<form action='/user' method='post'>
+		<input type='text' name='username' placeholder='User to add'>
+		<input type='submit' name='Add User'>
+	</form>
+	{% endblock %}
 </body>
 </html>
