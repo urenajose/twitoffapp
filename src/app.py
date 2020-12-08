@@ -5,7 +5,7 @@ from decouple import config
 
 def create_app():
 	app = Flask(__name__)
-	app.config['SQLALCHEMY_DATABASE_URI'] = config('SQLALCHEMY_DATABASE_URI')
+	app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
 	DB.init_app(app)
 
 	@app.route('/')
